@@ -1,0 +1,13 @@
+{
+    "name": "lic-serverless-poc",
+    "version": "0.1.0",
+    "dependencies": {
+      "aws-cdk-lib": "^2.x",
+      "constructs": "^10.x"
+    },
+    "devDependencies": {
+      "ts-node": "^10.x",
+      "typescript": "^4.x"
+    }
+  }
+  
