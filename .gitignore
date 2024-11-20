@@ -4,3 +4,4 @@ lambda/layer/nodejs/package-lock.json
 package-lock.json
 cdk.context.json
 python
+response.json

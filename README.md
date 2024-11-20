@@ -1,6 +1,6 @@
 # lic-serverless-poc
 
-Make sure node is installed in your local
+Make sure node and python is installed in your local
 
 Run `chmod 755 deploy.sh`
 

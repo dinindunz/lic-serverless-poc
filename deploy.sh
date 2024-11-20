@@ -7,4 +7,5 @@ python3 -m pip install -r requirements.txt --target ./python
 popd
 cdk bootstrap
 cdk deploy
-aws lambda invoke --function-name lic-schema-apply
+echo "Deploying database schema"
+aws lambda invoke --function-name lic-schema-apply --region ap-southeast-2 --payload {} response.json

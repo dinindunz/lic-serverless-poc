@@ -9,6 +9,7 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
 import { Construct } from 'constructs';
 import * as path from 'path';
+const fs = require('fs');
 
 export class LicServerlessPocStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -74,16 +75,7 @@ export class LicServerlessPocStack extends cdk.Stack {
     rdsInstance.connections.allowDefaultPortFromAnyIpv4();
 
     // Store SQL Schema in SSM Parameter
-    const sqlSchema = `
-      USE lic;
-      CREATE TABLE submissions (
-          id INT AUTO_INCREMENT PRIMARY KEY,
-          name VARCHAR(255) NOT NULL,
-          email VARCHAR(255) NOT NULL,
-          message TEXT NOT NULL,
-          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
+    const sqlSchema = fs.readFileSync('./migrations/schema.sql', 'utf-8');
 
     const schemaParameter = new ssm.StringParameter(this, 'SqlSchemaParameter', {
       parameterName: '/rds/schema',
