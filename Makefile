@@ -7,7 +7,7 @@ install-deps:
 # Setup Python dependencies for Lambda layers
 setup-lambda:
 	mkdir -p lambda/layers/python
-	python3 -m pip install -r lambda/layers/requirements.txt --target lambda/layers/python
+	python3 -m pip install -r lambda/layers/requirements.txt --target lambda/layers/python --upgrade
 
 # Bootstrap the CDK application
 bootstrap:

@@ -61,6 +61,7 @@ export class LicServerlessPocStack extends cdk.Stack {
     // Create an RDS Instance
     const rdsInstance = new rds.DatabaseInstance(this, 'RdsInstance', {
       engine: rds.DatabaseInstanceEngine.mysql({ version: rds.MysqlEngineVersion.VER_8_0 }),
+      instanceIdentifier: "lic",
       vpc,
       vpcSubnets,
       instanceType: ec2.InstanceType.of(ec2.InstanceClass.BURSTABLE3, ec2.InstanceSize.MICRO),
