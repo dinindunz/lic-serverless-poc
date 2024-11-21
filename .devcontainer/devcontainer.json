@@ -1,0 +1,42 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json
+{
+	"name": "LicNodeImage",
+	"build": {
+		"dockerfile": "../Dockerfile"
+	},
+	"containerUser": "lic",
+	"mounts": [
+		"src=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+		"src=${localEnv:HOME}/.aws,dst=/home/lic/.aws,type=bind",
+		"src=${localEnv:HOME}/.ssh,dst=/home/lic/.ssh,type=bind",
+		"src=${localEnv:HOME}/.gitconfig,dst=/home/lic/.gitconfig,type=bind"		
+	],
+	"onCreateCommand": "/opt/lic/iac/lic-serverless-poc/.devcontainer/scripts/on_create.sh",
+	"containerEnv": {
+		"AWS_REGION": "ap-southeast-2",
+		"AWS_PROFILE": "lic-dev"
+	},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"extensions.verifySignature": false,
+				"terminal.integrated.defaultProfile.linux": "zsh",
+        		"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "zsh"
+					}
+				}
+			},
+			"extensions": [
+				"amazonwebservices.aws-toolkit-vscode",
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"ms-azuretools.vscode-docker",
+				"SonarSource.sonarlint-vscode",
+				"ms-vscode.makefile-tools",
+				"tuxtina.json2yaml",
+				"mutantdino.resourcemonitor"
+			]
+		}
+	}
+}

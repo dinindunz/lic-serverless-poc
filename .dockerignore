@@ -1,0 +1,7 @@
+node_modules
+cdk.out
+package-lock.json
+cdk.context.json
+python
+response.json
+.git
