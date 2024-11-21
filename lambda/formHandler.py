@@ -3,27 +3,28 @@ import boto3
 import json
 import os
 
+
 def lambda_handler(event, context):
     try:
         # Parse the incoming request
-        body = json.loads(event['body'])
-        name = body.get('name')
-        email = body.get('email')
-        message = body.get('message')
+        body = json.loads(event["body"])
+        name = body.get("name")
+        email = body.get("email")
+        message = body.get("message")
 
         # Get the database credentials from AWS Secrets Manager
-        secrets_manager = boto3.client('secretsmanager')
-        secret_arn = os.environ['RDS_SECRET_ARN']
+        secrets_manager = boto3.client("secretsmanager")
+        secret_arn = os.environ["RDS_SECRET_ARN"]
         secret_response = secrets_manager.get_secret_value(SecretId=secret_arn)
-        db_credentials = json.loads(secret_response['SecretString'])
+        db_credentials = json.loads(secret_response["SecretString"])
 
         # Database connection details
         connection_config = {
-            'host': db_credentials['host'],
-            'user': db_credentials['username'],
-            'password': db_credentials['password'],
-            'database': db_credentials['dbname'],
-            'port': db_credentials['port']
+            "host": db_credentials["host"],
+            "user": db_credentials["username"],
+            "password": db_credentials["password"],
+            "database": db_credentials["dbname"],
+            "port": db_credentials["port"],
         }
 
         # Connect to the database and execute the query
@@ -36,16 +37,33 @@ def lambda_handler(event, context):
         # Return success response
         return {
             "statusCode": 200,
-            "body": json.dumps({"message": "Data submitted successfully!"})
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Content-Type",
+            },
+            "body": json.dumps(
+                {
+                    "message": "Data submitted successfully!",
+                }
+            ),
         }
 
     except Exception as e:
         print(f"Error: {e}")
         return {
             "statusCode": 500,
-            "body": json.dumps({"message": "Internal server error", "error": str(e)})
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Headers": "Content-Type",
+            },
+            "body": json.dumps(
+                {
+                    "message": "Failed to process the data.",
+                    "error": str(e),
+                }
+            ),
         }
 
     finally:
-        if 'connection' in locals():
+        if "connection" in locals():
             connection.close()

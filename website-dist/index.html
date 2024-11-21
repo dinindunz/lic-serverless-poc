@@ -64,7 +64,7 @@
       };
       
       try {
-        const apiEndpoint = 'https://jk2t60sjb4.execute-api.ap-southeast-2.amazonaws.com/prod/' // Replace with your API Gateway URL
+        const apiEndpoint = 'https://jk2t60sjb4.execute-api.ap-southeast-2.amazonaws.com/prod' // Replace with your API Gateway URL        
         const response = await fetch(`${apiEndpoint}/submit`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -76,8 +76,7 @@
           alert('Failed to submit data.');
         }
       } catch (error) {
-        console.error('Error submitting data:', error);
-        alert('An error occurred.');
+        alert(`An error occurred: ${error}`);
       }
     });
   </script>
