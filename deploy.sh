@@ -8,4 +8,4 @@ popd
 cdk bootstrap
 cdk deploy
 echo "Deploying database schema"
-aws lambda invoke --function-name lic-schema-apply --region ap-southeast-2 --payload '{}' --query 'Payload' --output text
+aws lambda invoke --function-name lic-schema-apply --region ap-southeast-2 --payload {} response.json | jq
